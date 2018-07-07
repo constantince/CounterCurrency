@@ -11,7 +11,7 @@ const styles = EStyleSheet.create({
 });
 export default class Theme extends Component {
     handlePressTheme = () => {
-        console.log('pressed!');
+        this.props.navigation.goBack(null);
     }
     
     render() {

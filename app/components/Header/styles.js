@@ -12,7 +12,6 @@ export default EStyleSheet.create({
     left: 0,
     alignItems: 'flex-end',
     width: '90%',
-    textAlign: 'right',
     '@media ios': {
       paddingTop: 40
     },

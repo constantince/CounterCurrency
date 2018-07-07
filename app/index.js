@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
-import CurrencyList from './screens/CurrencyList';
-import Options from './screens/Options';
-import Theme from './screens/Theme';
-
+import Navigation from './config/route';
+import {AlertProvider} from './components/Alert';
 EStyleSheet.build({
   $primaryBlue: "#4F6D7A",
   $primaryOrange: "#D57A66",
@@ -17,4 +15,8 @@ EStyleSheet.build({
   $darkText: "#343434"
 });
 
-export default () => <Theme />;
+export default () => (
+  <AlertProvider>
+    <Navigation />
+  </AlertProvider>
+);

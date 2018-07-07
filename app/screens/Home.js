@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StatusBar, KeyboardAvoidingView } from 'react-native';
-
+import PropTypes from 'prop-types';
 import { Container } from '../components/Container';
 import { Header } from '../components/Header';
 import { InputWidthButton } from '../components/TextInput';
@@ -15,16 +15,23 @@ const TEMP_LAST_CONVERTED = new Date();
 const TEMP_CONVERSION_RATE = 0.79739;
 
 class Home extends Component {
+
+  static propTypes = {
+    navigation: PropTypes.object
+  }
+
   handleChangeText = () => {
     console.log('change text');
   };
 
   handlePressBaseCurrency = () => {
     console.log('press base currency');
+    this.props.navigation.navigate('CurrencyList', {title: 'Base Currency'});
   };
 
   handlePressQuoteCurrency = () => {
     console.log('press quote currency');
+    this.props.navigation.navigate('CurrencyList', { title: 'Quote Currency' });
   };
 
   handleSwapCurrency = () => {
@@ -37,20 +44,21 @@ class Home extends Component {
 
   handleOptionsPress = () => {
     console.log('options press');
+    this.props.navigation.navigate("Options");
   };
 
   render() {
     return (
       <Container>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
-        <Header />
+        <Header onPress={this.handleOptionsPress} />
         <KeyboardAvoidingView behavior="padding">
           <Logo />
           <InputWidthButton
             editable={true}
             buttonText={TEMP_BASE_CURRENCY}
-            onPress={this.handlePressQuoteCurrency}
-            value={TEMP_QUOTE_PRICE}
+            onPress={this.handlePressBaseCurrency}
+            value={TEMP_BASE_PRICE}
           />
           <InputWidthButton
             editable={false}

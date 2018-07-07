@@ -11,11 +11,12 @@ class CurrentList extends Component {
 
     handlePress = () => {
         console.log('row pressed!');
+        this.props.navigation.goBack(null);
     }
 
     render() {
         return <View style={{ flex: 1 }}>
-            <StatusBar translucent={false} barStyle="default" />>
+            <StatusBar translucent={false} barStyle="default" />
             <FlatList 
             data={currencies}
              renderItem={({ item }) => 
