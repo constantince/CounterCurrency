@@ -2,15 +2,17 @@ import React, {Component} from 'react';
 import {ScrollView, StatusBar} from 'react-native';
 import EStyleSheet from "react-native-extended-stylesheet";
 import { ListItem } from "../components/List";
-
+import { changeThemeColor } from "../Actions/action";
+import {connect} from 'react-redux';
 const styles = EStyleSheet.create({
     $blue: '$primaryBlue',
     $orange: '$primaryOrange',
     $green: '$primaryGreen',
     $purple: '$primaryPurple',
 });
-export default class Theme extends Component {
-    handlePressTheme = () => {
+class Theme extends Component {
+    handlePressTheme = (color) => {
+        this.props.dispatch(changeThemeColor(color));
         this.props.navigation.goBack(null);
     }
     
@@ -50,3 +52,5 @@ export default class Theme extends Component {
           </ScrollView>;
     }
 }
+
+export default connect()(Theme);

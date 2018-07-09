@@ -4,7 +4,7 @@ import { View, Text, TouchableHighlight, TextInput } from 'react-native';
 import color from 'color';
 import styles from './styles';
 
-const InputWidthButton = ({onPress, editable, buttonText}) => {
+const InputWidthButton = ({onPress, editable, buttonText, value, changeAmount}) => {
   
   const inputContainerStyle = [styles.inputStyle];
 
@@ -13,7 +13,6 @@ const InputWidthButton = ({onPress, editable, buttonText}) => {
   }
   //设置按钮按下去的颜色和透明度，使用color库
   const underlayColor = color(styles.$buttonBackgroundColorBase).darken(styles.$buttonBackgroundColorModifier);
-  
   return (
     <View style={styles.container}>
       <TouchableHighlight
@@ -22,7 +21,7 @@ const InputWidthButton = ({onPress, editable, buttonText}) => {
         underlayColor={underlayColor}>
         <Text style={styles.textStyle}>{buttonText}</Text>
       </TouchableHighlight>
-      <TextInput style={inputContainerStyle} editable={editable} keyboardType="numeric" />
+      <TextInput style={inputContainerStyle} defaultValue={value} onChangeText={changeAmount} editable={editable} keyboardType="numeric" />
     </View>
   );
 };
@@ -31,6 +30,8 @@ InputWidthButton.propTypes = {
   onPress: PropTypes.func,
   editable: PropTypes.bool,
   buttonText: PropTypes.string,
-}
+  changeMount: PropTypes.func,
+  value: PropTypes.string
+};
 
 export default InputWidthButton;

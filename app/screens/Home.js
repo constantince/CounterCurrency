@@ -7,12 +7,9 @@ import { InputWidthButton } from '../components/TextInput';
 import { Logo } from '../components/Logo';
 import { Words } from '../components/Text';
 import { Buttons } from '../components/Button';
+import { connect } from "react-redux";
+import { changeBaseAmount } from "../Actions/action";
 const TEMP_BASE_CURRENCY = 'USD';
-const TEMP_QUOTE_CURRENCY = 'GBP';
-const TEMP_BASE_PRICE = '100';
-const TEMP_QUOTE_PRICE = '79.74';
-const TEMP_LAST_CONVERTED = new Date();
-const TEMP_CONVERSION_RATE = 0.79739;
 
 class Home extends Component {
 
@@ -48,29 +45,32 @@ class Home extends Component {
   };
 
   render() {
+    const { amount, base, quote, conversions, primaryColor } = this.props;
+    const rate = conversions[base].rates[quote];
     return (
       <Container>
         <StatusBar backgroundColor="blue" barStyle="light-content" />
         <Header onPress={this.handleOptionsPress} />
         <KeyboardAvoidingView behavior="padding">
-          <Logo />
+          <Logo tintColor={primaryColor} />
           <InputWidthButton
             editable={true}
             buttonText={TEMP_BASE_CURRENCY}
             onPress={this.handlePressBaseCurrency}
-            value={TEMP_BASE_PRICE}
+            value={amount}
+            changeAmount={(value) => {this.props.dispatch(changeBaseAmount(value)); }}
           />
           <InputWidthButton
             editable={false}
-            buttonText={TEMP_QUOTE_CURRENCY}
+            buttonText={quote}
             onPress={this.handlePressQuoteCurrency}
-            value={TEMP_QUOTE_PRICE}
+            value={String((rate * amount).toFixed(2))}
           />
           <Words
-            date={TEMP_LAST_CONVERTED}
-            base={TEMP_BASE_CURRENCY}
-            quote={TEMP_QUOTE_CURRENCY}
-            conversionRate={TEMP_CONVERSION_RATE}
+            date={conversions[base].date}
+            base={base}
+            quote={quote}
+            currencies={rate}
           />
           <Buttons buttonText="Reverse Currencies" />
         </KeyboardAvoidingView>
@@ -79,4 +79,12 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProp = state => ({
+  base: state.currencies.baseCurrency,
+  quote: state.currencies.quoteCurrency,
+  amount: state.currencies.amount,
+  conversions: state.currencies.conversions,
+  primaryColor: state.themes.primaryColor
+});
+
+export default connect(mapStateToProp)(Home);

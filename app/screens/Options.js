@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { ListItem } from './../components/List';
+import { ListItem } from '../components/List';
 import { View, Text, Platform, StatusBar, Linking} from 'react-native';
 import  {Ionicons} from '@expo/vector-icons';
-import connectAlert from './../components/Alert/connectAlert';
+import connectAlert from '../components/Alert/connectAlert';
 const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 const ICON_SIZE = 23;
 const ICON_COLOR = '#868686';
