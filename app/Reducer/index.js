@@ -1,26 +1,30 @@
 import { data} from '../data/currencies';
-import drop from 'dot-prop-immutable';
+import drop from 'dot-prop-immutable-chain';
 import {
-  CHANGE_CURRENCY,
+  CHANGE_BASE_CURRENCY,
   CHANGE_QUOTE_CURRENCY,
   CHANGE_BASE_AMOUNT,
   CHANGE_THEME_COLOR
 } from "../Actions/action";
 export default (reducer = (state = data, action) => {
   switch (action.type) {
-    case CHANGE_CURRENCY:
-      return drop.set(state, `currencies.${action.name}`, action.currency);
+    //
+    case CHANGE_BASE_CURRENCY:
+      return drop(state)
+        .set(`currencies.baseCurrency`, action.currency)
+        .set("currencies.conversions", {[action.currency]: action.data})
+        .value();
       break;
 
     case CHANGE_QUOTE_CURRENCY:
-      return drop.set(state, `currencies.quoteCurrency`, action.currency);
+      return drop(state).set(`currencies.quoteCurrency`, action.currency).value();
       break;
 
     case CHANGE_BASE_AMOUNT:
-      return drop.set(state, "currencies.amount", action.amount);
+      return drop(state).set("currencies.amount", action.amount).value();
 
     case CHANGE_THEME_COLOR:
-      return drop.set(state, "themes.primaryColor", action.color);
+      return drop(state).set("themes.primaryColor", action.color).value();
   }
 
   return state;

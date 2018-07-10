@@ -8,8 +8,7 @@ import { Logo } from '../components/Logo';
 import { Words } from '../components/Text';
 import { Buttons } from '../components/Button';
 import { connect } from "react-redux";
-import { changeBaseAmount } from "../Actions/action";
-const TEMP_BASE_CURRENCY = 'USD';
+import { changeBaseAmount, changeQuoteCurrency } from "../Actions/action";
 
 class Home extends Component {
 
@@ -23,12 +22,12 @@ class Home extends Component {
 
   handlePressBaseCurrency = () => {
     console.log('press base currency');
-    this.props.navigation.navigate('CurrencyList', {title: 'Base Currency'});
+    this.props.navigation.navigate('CurrencyList', {title: 'Base Currency', type: 'base'});
   };
 
   handlePressQuoteCurrency = () => {
     console.log('press quote currency');
-    this.props.navigation.navigate('CurrencyList', { title: 'Quote Currency' });
+    this.props.navigation.navigate('CurrencyList', { title: 'Quote Currency', type: 'quote' });
   };
 
   handleSwapCurrency = () => {
@@ -55,7 +54,7 @@ class Home extends Component {
           <Logo tintColor={primaryColor} />
           <InputWidthButton
             editable={true}
-            buttonText={TEMP_BASE_CURRENCY}
+            buttonText={base}
             onPress={this.handlePressBaseCurrency}
             value={amount}
             changeAmount={(value) => {this.props.dispatch(changeBaseAmount(value)); }}
@@ -72,7 +71,9 @@ class Home extends Component {
             quote={quote}
             currencies={rate}
           />
-          <Buttons buttonText="Reverse Currencies" />
+          <Buttons buttonText="Reverse Currencies" onPress={() => {
+            this.props.dispatch({ type: 'GET_CURRENCY', value: quote, other: base });
+          }}/>
         </KeyboardAvoidingView>
       </Container>
     );

@@ -1,15 +1,15 @@
 export const CHANGE_BASE_CURRENCY = "CHANGE_BASE_CURRENCY";
-export const CHANGE_CURRENCY = "CHANGE_CURRENCY";
+export const CHANGE_QUOTE_CURRENCY = "CHANGE_QUOTE_CURRENCY";
 export const CHANGE_BASE_AMOUNT = "CHANGE_BASE_AMOUNT";
 export const CHANGE_THEME_COLOR = "CHANGE_THEME_COLOR";
-export const changeBaseCurrency = (currency) => ({
+export const changeBaseCurrency = (currency, data) => ({
     type: CHANGE_BASE_CURRENCY,
-    currency
+    currency,
+    data,
 });
 
-export const changeCurrency = (name, currency) => ({
-    type: CHANGE_CURRENCY,
-    name,
+export const changeQuoteCurrency = currency => ({
+    type: CHANGE_QUOTE_CURRENCY,
     currency
 });
 

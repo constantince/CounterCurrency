@@ -5,7 +5,9 @@ import {AlertProvider} from './components/Alert';
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { createLogger} from 'redux-logger';
+import createSagaMiddleWare from 'redux-saga';
 import rootReducer from './Reducer';
+import saga from './Saga'
 EStyleSheet.build({
   $primaryBlue: "#4F6D7A",
   $primaryOrange: "#D57A66",
@@ -19,9 +21,16 @@ EStyleSheet.build({
   $darkText: "#343434"
 });
 
+const sagaMiddleWare = createSagaMiddleWare();
+
 const loggMiddlerWare = createLogger({collapsed: true});
 
-const store = createStore(rootReducer, applyMiddleware(loggMiddlerWare));
+const store = createStore(
+  rootReducer,
+  applyMiddleware(loggMiddlerWare, sagaMiddleWare)
+);
+
+sagaMiddleWare.run(saga);
 
 export default () => (<Provider store={store}>
   <AlertProvider>

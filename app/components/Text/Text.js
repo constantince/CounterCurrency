@@ -2,10 +2,9 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import moment from 'moment';
-const Words = ({base, quote, currencies}) => (
+const Words = ({base, quote, date, currencies}) => (
   <View style={styles.container}>
-    <Text style={styles.textStyle}>1 {base} = {currencies} {quote} as of {moment().format('YYYY-MM-DD')}</Text>
+    <Text style={styles.textStyle}>1 {base} = {currencies} {quote} as of {date}</Text>
   </View>
   );
 
@@ -13,7 +12,8 @@ const Words = ({base, quote, currencies}) => (
 Text.propTypes = {
   currencies: PropTypes.number,
   base: PropTypes.string,
-  quote: PropTypes.string
+  quote: PropTypes.string,
+  date: PropTypes.string,
 }
 
 export default Words;
