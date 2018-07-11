@@ -11,48 +11,45 @@ import { connect } from "react-redux";
 import { changeBaseAmount } from "../Actions/action";
 import connectAlert from './../components/Alert/connectAlert';
 
+const INIT_BASE_CURRENY = 'USD';
+const INIT_QUOTE_CURRENY = 'CNY';
+
 class Home extends Component {
   static propTypes = {
     navigation: PropTypes.object,
-    currencyError: PropTypes.string,
+    currencyError: PropTypes.string
   };
-
+  //初始化数据
+  componentWillMount() {
+    const { dispatch  } = this.props;
+    dispatch({
+      type: "GET_CURRENCY",
+      value: INIT_BASE_CURRENY,
+      other: INIT_QUOTE_CURRENY
+    });
+  }
+  //错误处理
   componentWillReceiveProps(nextProps) {
     if (nextProps.currencyError) {
       this.props.alertWithType("error", "Error", nextProps.currencyError);
     }
   }
-
-  handleChangeText = () => {
-    console.log("change text");
-  };
-
+  //切换基础汇率单位
   handlePressBaseCurrency = () => {
-    console.log("press base currency");
     this.props.navigation.navigate("CurrencyList", {
       title: "Base Currency",
       type: "base"
     });
   };
-
+  //切换目标汇率单位
   handlePressQuoteCurrency = () => {
-    console.log("press quote currency");
     this.props.navigation.navigate("CurrencyList", {
       title: "Quote Currency",
       type: "quote"
     });
   };
-
-  handleSwapCurrency = () => {
-    console.log("handle swap currency");
-  };
-
-  handleSwapCurrency = () => {
-    console.log("handle swap currency");
-  };
-
+  //路由到设置界面
   handleOptionsPress = () => {
-    console.log("options press");
     this.props.navigation.navigate("Options");
   };
 

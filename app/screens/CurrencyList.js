@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FlatList, StatusBar, View } from 'react-native';
 import { ListItem } from '../components/List';
-import currencies from '../data';
+import currencies, {CHN} from '../data';
 import {connect} from 'react-redux';
 import { changeQuoteCurrency } from "../Actions/action";
 
@@ -29,7 +29,7 @@ class CurrentList extends Component {
             <FlatList 
             data={currencies}
              renderItem={({ item }) => 
-             <ListItem text={item} 
+                 <ListItem text={CHN[item]} 
                      selected={item === selectedList}
                 onPress={this.handlePress.bind(this, item)} />} 
                 keyExtractor={item => item} 

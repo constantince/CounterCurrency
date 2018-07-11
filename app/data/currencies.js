@@ -4,7 +4,7 @@ export const data = {
   },
   "currencies": {
     "baseCurrency": "USD",
-    "quoteCurrency": "GBP",
+    "quoteCurrency": "CNY",
     "amount": "1",
     "conversions": {
       "USD": {
