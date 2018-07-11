@@ -31,7 +31,7 @@ InputWidthButton.propTypes = {
   editable: PropTypes.bool,
   buttonText: PropTypes.string,
   changeMount: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default InputWidthButton;

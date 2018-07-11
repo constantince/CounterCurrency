@@ -4,7 +4,9 @@ import {
   CHANGE_BASE_CURRENCY,
   CHANGE_QUOTE_CURRENCY,
   CHANGE_BASE_AMOUNT,
-  CHANGE_THEME_COLOR
+  CHANGE_THEME_COLOR,
+  CHANGE_BASE_CURRENCY_START,
+  FETCH_ERROR
 } from "../Actions/action";
 export default (reducer = (state = data, action) => {
   switch (action.type) {
@@ -12,7 +14,7 @@ export default (reducer = (state = data, action) => {
     case CHANGE_BASE_CURRENCY:
       return drop(state)
         .set(`currencies.baseCurrency`, action.currency)
-        .set("currencies.conversions", {[action.currency]: action.data})
+        .set("currencies.conversions", {[action.currency]: action.data, isFetching: false})
         .value();
       break;
 
@@ -25,6 +27,16 @@ export default (reducer = (state = data, action) => {
 
     case CHANGE_THEME_COLOR:
       return drop(state).set("themes.primaryColor", action.color).value();
+
+    case CHANGE_BASE_CURRENCY_START:
+      return drop(state)
+        .set(`currencies.conversions.${[action.currency]}.isFetching`, true)
+        .value();
+
+    case FETCH_ERROR:
+      return drop(state)
+        .merge(`currencies`, {error: action.error})
+        .value();
   }
 
   return state;
